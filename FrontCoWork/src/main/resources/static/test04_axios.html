@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Example with Axios</title>
+    <!-- Include Axios library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const result = document.getElementById('result-display');
+
+        axios.get('http://localhost:8080/apitest')
+            .then(response => {
+                const list = response.data;
+                list.forEach(dto => {
+                    const element = document.createElement('div');
+                    element.innerHTML = `<strong>${dto.id}</strong> - ${dto.name}:${dto.content}`;
+                    result.appendChild(element);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    });
+</script>
+<body>
+    <h1>Users</h1>
+    <div id="result-display"></div>
+</body>
+</html>

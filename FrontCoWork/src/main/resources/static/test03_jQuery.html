@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Example with jQuery</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        const result = $('#result-display');
+        
+        $.ajax({
+            url: 'http://localhost:8080/apitest',
+            method: 'GET',
+            dataType: 'json',
+            success: function (list) {
+                list.forEach(function (dto) {
+                    const element = $('<div></div>').html(`<strong>${dto.id}</strong> - ${dto.name}:${dto.content}`);
+                    result.append(element);
+                });
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    });
+</script>
+<body>
+    <h1>Users</h1>
+    <div id="result-display"></div>
+</body>
+</html>

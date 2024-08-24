@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Example</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const result = document.getElementById('result-display');
+        fetch('http://localhost:8080/apitest')
+            .then(response => {
+                if (!response.ok)
+                    throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(list => {
+                list.forEach(dto => {
+                    const element = document.createElement('div');
+                    element.innerHTML = `<strong>${dto.id}</strong> - ${dto.name}:${dto.content}`;
+                    result.appendChild(element);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    });
+</script>
+<body>
+<h1>Users</h1>
+<div id="result-display"></div>
+</body>
+</html>

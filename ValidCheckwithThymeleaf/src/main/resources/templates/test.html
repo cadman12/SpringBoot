@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/test" method="post">
+        이름:<input type="text" name="username"><span th:if="${username}" th:text="${username}"></span><br>
+        암호:<input type="text" name="password"><span th:if="${password}" th:text="${password}"></span><br>
+        <input type="submit" value="제출">
+    </form>
+</body>
+</html>
