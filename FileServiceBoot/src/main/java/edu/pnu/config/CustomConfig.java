@@ -11,6 +11,6 @@ public class CustomConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 		registry.addResourceHandler("/images/**")
-				.addResourceLocations("classpath:/static/images/");
+				.addResourceLocations("classpath:/static/images/","file:/c:/Temp/upload/");	
 	}
 }
