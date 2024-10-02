@@ -57,16 +57,39 @@
 # 잠금 메카니즘
 
 
-1.Optimistic Locking - 충돌이 거의 발생하지 않는다고 가정하고 @Version으로 버전 관리를 사용하여 충돌을 감지. 충돌이 감지되면(버전 불일치) 'OptimisticLockException' 발생.
+1.Optimistic Locking
+
+		* 충돌이 거의 발생하지 않는다고 가정하고 @Version으로 버전 관리를 사용하여 충돌을 감지.
+		* 충돌이 감지되면(버전 불일치) 'OptimisticLockException' 발생.
+		* 엔티티를 수정하면 해당 엔티티의 버전을 자동 증가시켜 DB에 저장.
+		* 만약 두 스레드가 동시에 수정하는 경우 먼저 수정한 쪽에서 versio을 증가시키고, 다른 스레드는 버전 번호가 다르므로 이 증가히게 되고 OptimisticLockException이 발생
 
 		@Entitypublic class MyEntity {
 			@Version
 			private Long version;
 		}
 
+		@Service
+		public class ProductService {
+		    @Autowired
+		    private ProductRepository productRepository;
+		    @Transactional
+			public Product updateProduct(Long productId, int newQuantity) {
+				try {
+					Product product = productRepository.findById(productId)
+						.orElseThrow(() -> new EntityNotFoundException("Product not found"));
+					product.setQuantity(newQuantity);
+					return productRepository.save(product);
+				} catch (OptimisticLockException e) {
+					throw new RuntimeException("Product was updated by another transaction", e);
+				}
+			}
+		}
+	
 
-2.Pessimistic Locking - Repository 인터페이스에 @Lock 설정으로 다른 트랜잭션이 행을 수정하지 못하도록 데이터베이스 수준에서 행을 잠급
+2.Pessimistic Locking
 
+		* Repository 인터페이스에 @Lock 설정으로 다른 트랜잭션이 행을 수정하지 못하도록 데이터베이스 수준에서 행을 잠급
 
 		@Lock(LockModeType.PESSIMISTIC_WRITE)@Query("SELECT e FROM MyEntity e WHERE e.id = :id")
 		MyEntity findByIdWithLock(@Param("id") Long id);
