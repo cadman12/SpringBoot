@@ -25,7 +25,7 @@
 		* default = required : 이미 진행 중인 트랜잭션이 있다면, 해당 트랜잭션의 속성을 따릅니다. 그렇지 않다면, 새로운 트랜잭션을 생성합니다.
 		* requires_new       : 항상 새로운 트랜잭션을 생성합니다. 이미 진행 중인 트랜잭션이 있다면, 해당 트랜잭션을 잠시 일시정지 하고, 생성한 트랜잭션을 우선하여 진행합니다.
 		* support            : 이미 실행 중인 트랜잭션이 있다면, 해당 트랜잭션 속성을 따릅니다. 실행 중인 트랜잭션이 없다면, 트랜잭션을 설정하지 않는다.
-		* not_support        : 이미 진행 중인 트랜잭션이 있다면, 보류합니다. 트랜잭션 없이 작업을 수행합니다.
+		* not_support        : 이미 진행 중인 트랜잭션이 있다면, 일시 중시하여 보류합니다. 트랜잭션 없이 작업을 수행합니다.
 		* mandatory          : 이미 진행 중인 트랜잭션이 없다면, Exception을 발생시킵니다. 트랜잭션이 있다면, 작업을 수행합니다.
 		* never              : 트랜잭션이 진행 중이라면, Exception을 발생시킵니다. 진행 중이지 않다면, 작업을 수행합니다.
 		* nested             : 진행 중인 트랜잭션이 있다면, 중첩된 트랜잭션이 실행됩니다. 진행 중인 트랜잭션이 없다면, required와 동일하게 동작합니다.
@@ -53,3 +53,36 @@
 		﻿@Transactional(readonly = true)
 
 		* default = false
+
+# 잠금 메카니즘
+
+
+1.Optimistic Locking - 충돌이 거의 발생하지 않는다고 가정하고 @Version으로 버전 관리를 사용하여 충돌을 감지. 충돌이 감지되면(버전 불일치) 'OptimisticLockException' 발생.
+
+		@Entitypublic class MyEntity {
+			@Version
+			private Long version;
+		}
+
+
+2.Pessimistic Locking - Repository 인터페이스에 @Lock 설정으로 다른 트랜잭션이 행을 수정하지 못하도록 데이터베이스 수준에서 행을 잠급
+
+
+		@Lock(LockModeType.PESSIMISTIC_WRITE)@Query("SELECT e FROM MyEntity e WHERE e.id = :id")
+		MyEntity findByIdWithLock(@Param("id") Long id);
+
+
+# 동기화 및 동시성 처리
+
+
+* 여러 스레드 또는 서비스가 동일한 리소스에 액세스하는 경우
+
+		@Synchronized: 코드의 중요한 섹션에 대한 액세스를 동기화
+		@Transactional의 isolation의 수준을 엄격한 격리 수준을 적용
+
+		@Synchronized
+		@Transactional(isolation = Isolation.REPEATABLE_READ)
+		public synchronized void criticalSection() {
+			// synchronized가 설정된 메서드는 동기화 메서드 전체에 대히 상호 배타적으로 호출, 즉 한개의 동기화 메서드가 호출되면 다른 동기화 메서드 모두 호출 불가. 비동기화 메서드는 호출 가능
+			// @Synchronized는 설정된 메서드만 상호 배타적으로 호출, 즉 한개의 설정 메서드가 호출되어도 다른 메서드 호출 가능
+		}
