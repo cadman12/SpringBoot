@@ -57,6 +57,9 @@
 # 잠금 메카니즘
 
 
+### @Lock
+
+
 1.Optimistic Locking
 
 		* 충돌이 거의 발생하지 않는다고 가정하고 @Version으로 버전 관리를 사용하여 충돌을 감지.
@@ -95,6 +98,12 @@
 		@Lock(LockModeType.PESSIMISTIC_WRITE)
 		@Query("SELECT e FROM MyEntity e WHERE e.id = :id")
 		Product findByIdWithLock(@Param("id") Long id);
+
+
+		LockModeType.OPTIMISTIC: 낙관적 잠금용입니다.
+		LockModeType.OPTIMISTIC_FORCE_INCREMENT: 낙관적과 유사하지만 강제로 버전을 증가시킵니다. ==> @Version 설정이 있어야 함.
+		LockModeType.PESSIMISTIC_READ: 읽기는 허용하지만 다른 트랜잭션에 의한 수정은 허용하지 않습니다.
+		LockModeType.PESSIMISTIC_WRITE: 다른 트랜잭션에 의한 읽기 및 수정을 모두 차단합니다.
 
 
 # 동기화 및 동시성 처리
