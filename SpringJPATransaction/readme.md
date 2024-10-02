@@ -64,7 +64,8 @@
 		* 엔티티를 수정하면 해당 엔티티의 버전을 자동 증가시켜 DB에 저장.
 		* 만약 두 스레드가 동시에 수정하는 경우 먼저 수정한 쪽에서 versio을 증가시키고, 다른 스레드는 버전 번호가 다르므로 이 증가히게 되고 OptimisticLockException이 발생
 
-		@Entitypublic class MyEntity {
+		@Entity
+		public class Product {
 			@Version
 			private Long version;
 		}
