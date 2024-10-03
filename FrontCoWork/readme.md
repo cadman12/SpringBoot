@@ -1,4 +1,4 @@
-# Html에서 BackEnd API를 호출하는 방법
+# Html에서 JavaScript로 BackEnd API를 호출하는 방법
 
 - Test용 API
 
