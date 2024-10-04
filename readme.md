@@ -1,17 +1,17 @@
 ### ASyncBootThread
 
   스프링부트에서 @Async를 이용한 비동기 프로세싱
-	호출될 때마다 스레드를 생성하는 방식
+	호출될 때마다 스레드를 생성하는 방식 예제 코드
 
 ### ASyncBootThreadPool
 
   스프링부트에서 @Async를 이용한 비동기 프로세싱
-	스레드 풀을 이용하는 방식
+	스레드 풀을 이용하는 방식 예제 코드
 
 
 ### Base64Test
 
-   Base64 인코딩 테스트 예제 프로젝트
+   Base64 인코딩 테스트 예제 코드
 
 ### BootWebClient
 
