@@ -49,6 +49,10 @@
 
   다국어 서비스 예제 코드
 
+### JPABootSakila
+
+  스프링부트에서 View와 Stored Procedure를 사용하는 예제 코드
+
 ### JPAForeignKeyStudy
 
   스프링부트에서 Entity 간 연관관계를 맺은 뒤 객체를 삭제 시 Cascade 옵션 테스트 코드
