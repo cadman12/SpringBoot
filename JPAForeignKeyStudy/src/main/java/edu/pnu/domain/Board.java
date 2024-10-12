@@ -28,8 +28,9 @@ public class Board {
 	private String title;
 	private String content;
 	
-	@ManyToOne
 //	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE CASCADE"))
-	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE SET NULL"))
+//	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE SET NULL"))
+	@ManyToOne
+	@JoinColumn(name = "username")
 	private Member member;
 }
