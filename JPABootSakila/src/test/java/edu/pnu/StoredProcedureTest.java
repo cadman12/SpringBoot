@@ -1,20 +1,27 @@
 package edu.pnu;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import edu.pnu.persistence.ActorInfoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 class StoredProcedureTest {
 
 	@Autowired
+	private ActorInfoRepository aiRepo;
+	
+	@Autowired
 	private EntityManager entityManager;
 	
-	@Test
+//	@Test
 	void test01() {
 		// 저장 프로시저 실행 객체 생성
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("film_in_stock");
@@ -33,5 +40,23 @@ class StoredProcedureTest {
 		
 		// 결과값 추출
 		System.out.println(query.getOutputParameterValue("p_film_count"));
+	}
+
+	@Test
+	void test02() {
+		System.out.println("test02:" + aiRepo.filmInStock1(1,  1));
+	}	
+	
+	@Transactional
+	@Test
+	void test03() {
+		
+		System.out.println("test03");
+
+		List<Object[]> list = aiRepo.filmInStock2(1, 1);
+
+		for (Object[] objs : list) {
+			System.out.println(objs);
+		}
 	}
 }
