@@ -12,6 +12,7 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 
+//저장 프로시저를 호출하는 메소드 또는 클리스에서는 @Transactional 지정이 필요함
 @Transactional
 @SpringBootTest
 class StoredProcedureTest {
