@@ -2,61 +2,114 @@
 
 ## 1.테스트용 데이터베이스
 
-	- MySQL 기본 예제 데이터베이스 sakila
+- MySQL 기본 예제 데이터베이스 sakila
 
 
 ### 2.View
 
-	- Entity Class : ActorInfo
-	- Repository : ActorInfoRepository
+- Entity Class : ActorInfo
 
-	- 실행 : ViewTest - test01, test02
+- Repository : ActorInfoRepository
+
+- 실행 : ViewTest - test01, test02
 
 
 ### 3.Stored Procedure
 
-	- 실행 : StoredProcedureTest - test01
+- Stored Procedure : film_in_stock
+
+- 실행 : StoredProcedureTest.java
 	
-	- https://docs.spring.io/spring-data/jpa/reference/jpa/stored-procedures.html
-	
-	- ActorInfoRepository.java
-	
-		. test01 : StoredProcedureQuery 객체를 이용한 저장 프로시저 실행 예제 코드
+- https://docs.spring.io/spring-data/jpa/reference/jpa/stored-procedures.html
+
+
+= ActorInfoRepository.java
+
+1)입력, 출력 파라미터가 없고 질의만 호출하는 경우
+
+	@Procedure("film_in_stock1")
+	List<Object[]> filmInStock1();
+
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock1`()
+	    READS SQL DATA
+	BEGIN
+	     SELECT inventory_id, film_id, store_id
+	     FROM inventory
+	     WHERE film_id = 1;
+	END
 		
-		. test02 : @Procedure 를 이용한 저장 프로시저 실행 예제 코드 1
+2)1개 이상의 입력 파라미터가 있고, 출력 파라미터 없이 호출하는 경우
 
-			// 예제 film_in_stock에서 output 파라미터를 넘기는 질의만 남긴 새로운 저장 프로시저를 생성해서 테스트
-			@Procedure("film_in_stock1")
-			Integer filmInStock1(Integer p_film_id, Integer p_store_id);
+	@Procedure("film_in_stock2")
+	List<Object[]> filmInStock2(Integer p_film_id, Integer p_store_id);
 
-			CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock1`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT) READS SQL DATA
-			BEGIN
-			     SELECT COUNT(*)
-			     FROM inventory
-			     WHERE film_id = p_film_id
-			     AND store_id = p_store_id
-			     AND inventory_in_stock(inventory_id)
-			     INTO p_film_count;
-			END
-			
-		. test03 : @Procedure 를 이용한 저장 프로시저 실행 예제 코드 2
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock2`(IN p_film_id INT, IN p_store_id INT)
+		READS SQL DATA
+	BEGIN
+		SELECT inventory_id, film_id, store_id
+		FROM inventory
+		WHERE film_id = p_film_id
+		AND store_id = p_store_id
+		AND inventory_in_stock(inventory_id);
+	END
+
+3)1개 이상 input 파라미터, 1개의 output 파라미터 ==> output 파라미터는 메서드의 리턴값으로 변환된다.
+
+	@Procedure("film_in_stock3")
+	Integer filmInStock3(Integer p_film_id, Integer p_store_id);
 		
-			// 예제 film_in_stock에서 output 파라미터를 제거하고 질의만 남긴 새로운 저장 프로시저를 생성해서 테스트
-			@Procedure("film_in_stock2")
-			List<Object[]> filmInStock2(Integer p_film_id, Integer p_store_id);
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock3`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)
+		READS SQL DATA
+	BEGIN
+		SELECT COUNT(*)
+		FROM inventory
+		WHERE film_id = p_film_id
+		AND store_id = p_store_id
+		AND inventory_in_stock(inventory_id)
+		INTO p_film_count;
+	END
+		
+4)1개 이상 input 파라미터, 2개 이상 output 파라미터
 
-			CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock2`(IN p_film_id INT, IN p_store_id INT) READS SQL DATA
-			BEGIN
-			     SELECT inventory_id
-			     FROM inventory
-			     WHERE film_id = p_film_id
-			     AND store_id = p_store_id
-			     AND inventory_in_stock(inventory_id);
-     
-			     SELECT *
-			     FROM actor;
-			END
-			
-			==> 질의가 1개 이상인 경우에는 제일 처음 질의 결과만 리턴
+  	. JPA에서는 복수의 output 파라미터는 지원하지 않음.
+	. StoredProcedureQuery 객체를 이용해서 처리함.
+		
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock4`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT, OUT sum INT)
+	    READS SQL DATA
+	BEGIN
+	     SELECT COUNT(*)
+	     FROM inventory
+	     WHERE film_id = p_film_id
+	     AND store_id = p_store_id
+	     AND inventory_in_stock(inventory_id)
+	     INTO p_film_count;
+			     
+	     SELECT sum(inventory_id)
+	     FROM inventory
+	     WHERE film_id = p_film_id
+	     AND store_id = p_store_id
+	     AND inventory_in_stock(inventory_id)
+	     INTO sum;     
+	END
 
-	- 질의 결과와 output 파라미터에 값을 설정하는 두가지 방법을 모두 사용하는 방법은 테스트 확인 후 추가 예정
+5)1개 이상 input 파라미터, 1개 이상 output 파라미터와 질의 결과 셋이 있는 경우
+
+	. JPA에서는 복수의 output 파라미터는 지원하지 않음.
+	. StoredProcedureQuery 객체를 이용해서 처리함. 
+
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)
+	    READS SQL DATA
+	BEGIN
+	    SELECT inventory_id
+	    FROM inventory
+	    WHERE film_id = p_film_id
+	    AND store_id = p_store_id
+	    AND inventory_in_stock(inventory_id);
+		
+	    SELECT COUNT(*)
+	    FROM inventory
+	    WHERE film_id = p_film_id
+	    AND store_id = p_store_id
+	    AND inventory_in_stock(inventory_id)
+	    INTO p_film_count;	     
+	END	

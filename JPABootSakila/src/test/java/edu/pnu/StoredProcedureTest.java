@@ -86,6 +86,7 @@ class StoredProcedureTest {
         System.out.println("p_film_count:" + p_film_count + ", sum:" + sum);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void test05() {
 		
@@ -114,7 +115,7 @@ class StoredProcedureTest {
         
         if (hasResultSet) {
         	// 질의 결과 셋이 여러 필드인 경우라면 List<Object>가 아닌 List<Object[]>
-        	List<Object> list = query.getResultList();
+			List<Object> list = query.getResultList();
     		for (Object obj : list) {
     			System.out.println(obj);
     		}
