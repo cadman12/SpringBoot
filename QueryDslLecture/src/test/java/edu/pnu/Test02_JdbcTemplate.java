@@ -90,9 +90,18 @@ class Test02_JdbcTemplate {
 		
 		TestUtil.drawTitle("JdbcTemplate - dataSelect2");
 
+		List<Customer> list = new ArrayList<>();
 		jdbcTemplate.query("select * from customer where id=?", (rs->{
-			System.out.println(rs.getLong("id")+","+rs.getString("first_name")+","+rs.getString("last_name"));
+			list.add(Customer.builder()
+							.id(rs.getLong("id"))
+							.firstName(rs.getString("first_name"))
+							.lastName(rs.getString("last_name"))
+							.build());
 		}), 2);
+
+		for(Customer c : list) {
+			System.out.println(c);
+		}
 	}
 
 	@DisplayName("JdbcTemplate - dataDelete")
@@ -116,7 +125,7 @@ class Test02_JdbcTemplate {
 		jdbcTemplate.query("select * from customer", (rs->{
 			System.out.println(rs.getLong("id")+","+rs.getString("first_name")+","+rs.getString("last_name"));
 		}));
-	}	
+	}
 	
 	@DisplayName("jdbcTemplate - batchUpdate")
 	@Order(7)
