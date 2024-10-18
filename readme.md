@@ -8,7 +8,6 @@
   스프링부트에서 @Async를 이용한 비동기 프로세싱
 	스레드 풀을 이용하는 방식 예제 코드
 
-
 ### Base64Test
 
    Base64 인코딩 테스트 예제 코드
@@ -49,6 +48,10 @@
 
   다국어 서비스 예제 코드
 
+### JPABasic
+
+  자바 + JPA를 이용하는 기본 예제 코드
+
 ### JPABootSakila
 
   스프링부트에서 View와 Stored Procedure를 사용하는 예제 코드
@@ -65,15 +68,11 @@
 
   스프링부트에서 JPA 엔티티간 상속관계 예제 코드
 
-### JPALecture
-
-  자바 + JPA를 이용하는 예제 코드
-
-### JPALectureComplexKeyEmbeddedId
+### JPAComplexKeyEmbeddedId
 
   자바 + JPA에서 @EmbeddedId를 이용한 복합키 예제 코드
 
-### JPALectureComplexKeyIdClass
+### JPAComplexKeyIdClass
 
   자바 + JPA에서 @IdClass를 이용한 복합키 예제 코드
 
@@ -86,17 +85,17 @@
   스프링부트에서 LazyInitException 문제 해결 방법 예제 코드
 	LazyInitException : Session이 끊어진 뒤 포함 객체 초기화 실패 예외
 
-### ProxyLecture
-
-  자바에서 Proxy 사용 예제 코드
-
-### QueryDslLecture
+### JPAQueryDsl
 
   다양한 데이터베이스 조작 객체 테스트 코드
 
-### SpringJPATransaction
+### JPATransaction
 
   스프링 JPA에서 트랜잭션을 사용하는 예제 코드
+
+### ProxyLecture
+
+  자바에서 Proxy 사용 예제 코드
 
 ### StoredProcedureBoot
 
