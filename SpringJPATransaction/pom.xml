@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.pnu</groupId>
-	<artifactId>SpringJPATransaction</artifactId>
+	<artifactId>JPATransaction</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringJPATransaction</name>
+	<name>JPATransaction</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

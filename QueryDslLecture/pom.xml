@@ -12,9 +12,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.pnu</groupId>
-	<artifactId>QueryDslLecture</artifactId>
+	<artifactId>JPAQueryDsl</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>QueryDslLecture</name>
+	<name>JPAQueryDsl</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

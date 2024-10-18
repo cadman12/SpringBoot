@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
 
 @Transactional
 @SpringBootTest
-class SpringJpaTransactionApplicationTests {
+class JpaTransactionApplicationTests {
 
 	@Autowired
 	private MemberRepository memberRepository;
