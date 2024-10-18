@@ -56,6 +56,14 @@
 
   스프링부트에서 View와 Stored Procedure를 사용하는 예제 코드
 
+### JPAComplexKeyEmbeddedId
+
+  @EmbeddedId를 이용한 복합키 예제 코드 - 복합키용 클래스를 이용하는 방법
+
+### JPAComplexKeyIdClass
+
+  @IdClass를 이용한 복합키 예제 코드 - @Id를 복수개 선언하는 방법
+
 ### JPADynamicQuery
 
   스프링부트에서 Dynamic Query를 사용하는 몇가지 방법을 보여주는 예제 코드
@@ -96,10 +104,6 @@
 ### ProxyLecture
 
   자바에서 Proxy 사용 예제 코드
-
-### StoredProcedureBoot
-
-  스프링 JPA에서 저장 프로시져를 사용하는 예제 코드
 
 ### ValidCheck
 
