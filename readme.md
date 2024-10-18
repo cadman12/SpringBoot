@@ -53,6 +53,10 @@
 
   스프링부트에서 View와 Stored Procedure를 사용하는 예제 코드
 
+### JPADynamicQuery
+
+  스프링부트에서 Dynamic Query를 사용하는 몇가지 방법을 보여주는 예제 코드
+
 ### JPAForeignKeyStudy
 
   스프링부트에서 Entity 간 연관관계를 맺은 뒤 객체를 삭제 시 Cascade 옵션 테스트 코드
@@ -89,10 +93,6 @@
 ### QueryDslLecture
 
   다양한 데이터베이스 조작 객체 테스트 코드
-
-### QueryDslTemplate
-
-  테이블에 대해 검색할 때 검색 조건이 동적으로 변경되는 경우에 사용할 수 있는 예제 코드
 
 ### SpringJPATransaction
 
