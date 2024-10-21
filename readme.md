@@ -12,10 +12,6 @@
 
    Base64 인코딩 테스트 예제 코드
 
-### BootWebClient
-
-   WebClient & 스케쥴러 & 웹소켓을 이용한 푸시서비스 예제 코드
-
 ### BootWebSocketAsyncWebClient
 	
    WebClient & 스케쥴러 & 웹소켓을 이용한 동기/비동기 푸시서비스 예제 코드
