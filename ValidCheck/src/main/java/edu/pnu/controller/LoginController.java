@@ -33,6 +33,15 @@ class LoginForm{
 @RestController
 public class LoginController {
 
+    // 로그인 인증을 실행한다.
+	private Boolean loginProc(String username, String password) {
+		// 데이터베이스에서 검증하는 과정은 이 예제에서는 생략한다.
+        if (username.equals("user") && password.equals("abcd")) {
+    		return true;
+        }
+   		return false;
+	}
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody LoginForm loginForm, BindingResult bindingResult) {
 
@@ -50,35 +59,33 @@ public class LoginController {
 
 		System.out.println("login - 2.Normal");
 		
-        // You can now access the validated data in the loginForm object
+        // 로그인을 위해 사용자명과 암호를 읽는다.
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
 
-        // Perform authentication and return a response
-        if (username.equals("user") && password.equals("abcd")) {
+        // 로그인 인증을 실행하고 결과를 ResponseEntity에 담아서 되돌려 준다.
+        if (loginProc(username, password)) {
     		System.out.println("login - Successs");
-            return ResponseEntity.ok("Login successful");
-        } else {
-    		System.out.println("login - Unauthorized");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed");
+            return ResponseEntity.ok("login - Successs");
         }
+		System.out.println("login - Unauthorized");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login - Unauthorized");
     }
 	@PostMapping("/login1")
 	public ResponseEntity<?> login1(@Valid @RequestBody LoginForm loginForm) {
 
-		System.out.println("login - 1");
+		System.out.println("login1 - 1");
 		
-       // You can now access the validated data in the loginForm object
+        // 로그인을 위해 사용자명과 암호를 읽는다.
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
 
-        // Perform authentication and return a response
-        if (username.equals("user") && password.equals("abcd")) {
-    		System.out.println("login - Successs");
-            return ResponseEntity.ok("Login successful");
-        } else {
-    		System.out.println("login - Unauthorized");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed");
+        // 로그인 인증을 실행하고 결과를 ResponseEntity에 담아서 되돌려 준다.
+        if (loginProc(username, password)) {
+    		System.out.println("login1 - Successs");
+            return ResponseEntity.ok("login1 - Successs");
         }
+		System.out.println("login1 - Unauthorized");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login1 - Unauthorized");
     }
 }
