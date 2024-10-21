@@ -67,7 +67,7 @@ public class LoginController {
 		if (loginProc(username, password)) {
 			System.out.println("login - Successs");
 			return ResponseEntity.ok("login - Successs");
-			}
+		}
 		System.out.println("login - Unauthorized");
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login - Unauthorized");
 	}
