@@ -59,33 +59,33 @@ public class LoginController {
 
 		System.out.println("login - 2.Normal");
 		
-        // 로그인을 위해 사용자명과 암호를 읽는다.
-        String username = loginForm.getUsername();
-        String password = loginForm.getPassword();
+		// 로그인을 위해 사용자명과 암호를 읽는다.
+		String username = loginForm.getUsername();
+		String password = loginForm.getPassword();
 
-        // 로그인 인증을 실행하고 결과를 ResponseEntity에 담아서 되돌려 준다.
-        if (loginProc(username, password)) {
-    		System.out.println("login - Successs");
-            return ResponseEntity.ok("login - Successs");
-        }
+		// 로그인 인증을 실행하고 결과를 ResponseEntity에 담아서 되돌려 준다.
+		if (loginProc(username, password)) {
+			System.out.println("login - Successs");
+			return ResponseEntity.ok("login - Successs");
+			}
 		System.out.println("login - Unauthorized");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login - Unauthorized");
-    }
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login - Unauthorized");
+	}
 	@PostMapping("/login1")
 	public ResponseEntity<?> login1(@Valid @RequestBody LoginForm loginForm) {
 
 		System.out.println("login1 - 1");
 		
-        // 로그인을 위해 사용자명과 암호를 읽는다.
-        String username = loginForm.getUsername();
-        String password = loginForm.getPassword();
+		// 로그인을 위해 사용자명과 암호를 읽는다.
+		String username = loginForm.getUsername();
+		String password = loginForm.getPassword();
 
-        // 로그인 인증을 실행하고 결과를 ResponseEntity에 담아서 되돌려 준다.
-        if (loginProc(username, password)) {
-    		System.out.println("login1 - Successs");
-            return ResponseEntity.ok("login1 - Successs");
-        }
-		System.out.println("login1 - Unauthorized");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login1 - Unauthorized");
+		// 로그인 인증을 실행하고 결과를 ResponseEntity에 담아서 되돌려 준다.
+		if (loginProc(username, password)) {
+			System.out.println("login - Successs");
+			return ResponseEntity.ok("login - Successs");
+		}
+		System.out.println("login - Unauthorized");
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login - Unauthorized");
     }
 }
