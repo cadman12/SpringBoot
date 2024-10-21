@@ -33,13 +33,13 @@ class LoginForm{
 @RestController
 public class LoginController {
 
-    // 로그인 인증을 실행한다.
+	// 로그인 인증을 실행한다.
 	private Boolean loginProc(String username, String password) {
 		// 데이터베이스에서 검증하는 과정은 이 예제에서는 생략한다.
-        if (username.equals("user") && password.equals("abcd")) {
+		if (username.equals("user") && password.equals("abcd")) {
     		return true;
-        }
-   		return false;
+    	}
+		return false;
 	}
 	
 	@PostMapping("/login")
