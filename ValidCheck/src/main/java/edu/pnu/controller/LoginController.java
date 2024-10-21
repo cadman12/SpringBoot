@@ -37,8 +37,8 @@ public class LoginController {
 	private Boolean loginProc(String username, String password) {
 		// 데이터베이스에서 검증하는 과정은 이 예제에서는 생략한다.
 		if (username.equals("user") && password.equals("abcd")) {
-    		return true;
-    	}
+			return true;
+		}
 		return false;
 	}
 	
@@ -87,5 +87,5 @@ public class LoginController {
 		}
 		System.out.println("login - Unauthorized");
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login - Unauthorized");
-    }
+	}
 }
