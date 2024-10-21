@@ -40,10 +40,6 @@
 
   Spring Boot 서버에서 자체 서명된 SSL 인증서를 사용한 테스트 방법
 
-### InternationalMessage
-
-  다국어 서비스 예제 코드
-
 ### JPABasic
 
   자바 + JPA를 이용하는 기본 예제 코드
@@ -96,6 +92,10 @@
 ### JPATransaction
 
   스프링 JPA에서 트랜잭션을 사용하는 예제 코드
+
+### LocaleProject
+
+  Locale 설정에 따라 숫자, 금액, 날짜, 시간 출력 포멧이 바뀌어서 출력하는 예제
 
 ### ProxyLecture
 
