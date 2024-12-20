@@ -36,6 +36,10 @@
 
   JavaScript로 BackEnd API 호출 예제 코드
 
+### GenerateAddressSQL
+
+  우정사업본부 주소 DB 텍스트 파일을 DB에 입력하기 위한 SQL로 변환하는 코드
+
 ### HttpsProject
 
   Spring Boot 서버에서 자체 서명된 SSL 인증서를 사용한 테스트 방법
