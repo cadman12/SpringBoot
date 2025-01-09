@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import edu.pnu.domain.Board;
 import edu.pnu.domain.Member;
+import edu.pnu.domain.dto.BoardDTO;
 import edu.pnu.persistence.BoardRepository;
 import edu.pnu.persistence.spec.BoardSpecification;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -48,6 +50,7 @@ public class BoardService {
 		return boardRepository.findAll(spec);
 	}
 	
+	// Criteria을 이용한 동적 질의
 	public List<Board> boardQueryByCriteria(Board board) {
 
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -73,6 +76,7 @@ public class BoardService {
 		return entityManager.createQuery(cq).getResultList();
 	}
 
+	// JPQL와 네이티브 질의을 이용한 동적 질의
 	@SuppressWarnings("unchecked")
 	public List<Board> boardQueryByJPANativeQuery(Board board) {
 
@@ -95,6 +99,7 @@ public class BoardService {
         return query.getResultList();
 	}
 	
+	// JdbcTemplate을 이용한 동적 질의
 	public List<Board> boardQueryByJdbcTemplate(Board board) {
         StringBuilder sql = new StringBuilder("SELECT * FROM board WHERE 1=1");
 		String title = board.getTitle();
@@ -120,6 +125,7 @@ public class BoardService {
         						.build());
     }
 	
+	// JdbcTemplate을 이용한 동적 질의 (조인)
 	public List<Board> boardQueryByJdbcTemplate1(Board board) {
         StringBuilder sql = new StringBuilder("SELECT * FROM board "
        				+ " left join member on board.member_id = member.username "
@@ -150,5 +156,52 @@ public class BoardService {
         										.role(rs.getString("role"))
         										.build())
         						.build());
-    }		
+    }
+	
+	// JPQL을 이용한 동적 질의
+	@SuppressWarnings("unchecked")
+	public List<Board> boardQueryByJPQL(Board board) {
+
+        StringBuilder sql = new StringBuilder("SELECT b FROM Board b WHERE 1=1");
+		String title = board.getTitle();
+		String content = board.getContent();
+
+		if(title != null && !title.isEmpty())		sql.append(" AND b.title like :title");
+		if(content != null && !content.isEmpty())	sql.append(" AND b.content like :content");
+
+        Query query = entityManager.createQuery(sql.toString(), Board.class);
+
+        if (title != null && !title.isEmpty()) {
+            query.setParameter("title", "%" + title + "%");
+        }
+        if (content != null && !content.isEmpty()) {
+            query.setParameter("content",  "%" + content + "%");
+        }
+
+        return query.getResultList();
+	}
+	
+	// Board와 Member를 합쳐서 하나의 DTO 객체를 만든 뒤 리턴
+	public List<BoardDTO> boardQueryByJPQLWithDTO(Board board) {
+
+        StringBuilder sql = new StringBuilder("SELECT new BoardDTO"
+        		+ "(b.seq, b.title, b.content, b.date, b.member.username) "
+        		+ " FROM Board b WHERE 1=1");
+		String title = board.getTitle();
+		String content = board.getContent();
+
+		if(title != null && !title.isEmpty())		sql.append(" AND b.title like :title");
+		if(content != null && !content.isEmpty())	sql.append(" AND b.content like :content");
+
+        TypedQuery<BoardDTO> query = entityManager.createQuery(sql.toString(), BoardDTO.class);
+
+        if (title != null && !title.isEmpty()) {
+            query.setParameter("title", "%" + title + "%");
+        }
+        if (content != null && !content.isEmpty()) {
+            query.setParameter("content",  "%" + content + "%");
+        }
+
+        return query.getResultList();
+	}		
 }

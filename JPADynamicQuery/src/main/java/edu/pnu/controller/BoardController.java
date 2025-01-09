@@ -43,4 +43,14 @@ public class BoardController {
 	public ResponseEntity<?> boardQueryByJdbcTemplate1(Board board) {
 		return ResponseEntity.ok(boardService.boardQueryByJdbcTemplate1(board));
 	}
+	
+	@GetMapping("/board5")
+	public ResponseEntity<?> boardQueryByJPQL(Board board) {
+		return ResponseEntity.ok(boardService.boardQueryByJPQL(board));
+	}
+
+	@GetMapping("/board6")
+	public ResponseEntity<?> boardQueryByJPQLWithDTO(Board board) {
+		return ResponseEntity.ok(boardService.boardQueryByJPQLWithDTO(board));
+	}
 }
