@@ -35,6 +35,6 @@ public class Board {
 	private Date date;
 	
 	@ManyToOne
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "username")
 	private Member member;
 }
