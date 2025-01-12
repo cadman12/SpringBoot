@@ -89,10 +89,6 @@
   스프링부트에서 LazyInitException 문제 해결 방법 예제 코드
 	LazyInitException : Session이 끊어진 뒤 포함 객체 초기화 실패 예외
 
-### JPAQueryDsl
-
-  다양한 데이터베이스 조작 객체 테스트 코드
-
 ### JPARelationMapping
 
   테이블 연관관계 테스트 코드 (@ManyToOne, @OneToMany, @OneToOne, @ManyToMany)
