@@ -1,26 +1,30 @@
-# Getting Started
+# JPA 연관관계 설정 예제 코드
 
-### Reference Documentation
-For further reference, please consider the following sections:
+	- ManyToOne
+	
+	- OneToOne
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.1/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.1/maven-plugin/build-image.html)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/3.4.1/reference/data/sql.html#data.sql.jpa-and-spring-data)
-* [Spring Web](https://docs.spring.io/spring-boot/3.4.1/reference/web/servlet.html)
+	- ManyToMany
 
-### Guides
-The following guides illustrate how to use some features concretely:
+# 테스트 데이터 입력 (edu.pnu.DataInit.java)
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+  - M2ODataInit : ManyToOne 테스트용 데이터 입력 메서드
 
-### Maven Parent overrides
+  - O2ODataInit : OneToOne 테스트용 데이터 입력 메서드
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+  - M2MDataInit1 : ManyToMany 테스트용 데이터 입력 메서드 (Self Relation)
 
+  - M2MDataInit2 : ManyToMany 테스트용 데이터 입력 메서드
+
+# 테스트 URL
+
+	- @GetMapping("/m2o") : ManyToOne 연관관계 데이터 테스트 URL
+ 
+	- @GetMapping("/o2o") : OneToOne 연관관계 데이터 테스트 URL
+ 
+	- @GetMapping("/m2m") : ManyToMany 연관관계 데이터 테스트 URL (Member)
+ 
+	- @GetMapping("/m2mt1") : ManyToMany 연관관계 데이터 테스트 URL (Table1)
+ 
+	- @GetMapping("/m2mt2") : ManyToMany 연관관계 데이터 테스트 URL (Table2)
+ 
