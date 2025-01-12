@@ -93,6 +93,10 @@
 
   다양한 데이터베이스 조작 객체 테스트 코드
 
+### JPARelationMapping
+
+  테이블 연관관계 테스트 코드 (@ManyToOne, @OneToMany, @OneToOne, @ManyToMany)
+
 ### JPATransaction
 
   스프링 JPA에서 트랜잭션을 사용하는 예제 코드
