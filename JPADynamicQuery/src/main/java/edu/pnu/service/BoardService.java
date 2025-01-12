@@ -14,6 +14,7 @@ import edu.pnu.domain.dto.BoardDTO;
 import edu.pnu.persistence.BoardRepository;
 import edu.pnu.persistence.spec.BoardSpecification;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -27,7 +28,7 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 
-	@Autowired
+	@PersistenceContext
 	private EntityManager entityManager;	
 
     @Autowired
