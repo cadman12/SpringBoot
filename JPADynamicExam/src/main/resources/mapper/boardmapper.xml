@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.pnu.persistence.mapper.BoardMapper">
+
+	<select id="getBulletins">
+		SELECT * FROM Board
+		WHERE 1=1
+
+		<if test="title != null and title != ''">
+			AND title like CONCAT('%', #{title}, '%')
+		</if>
+		<if test="content != null and content != ''">
+			AND content like CONCAT('%', #{content}, '%')
+		</if>
+		<if test="author!= null and author != ''">
+			AND author like CONCAT('%', #{author}, '%')
+		</if>
+
+		ORDER BY id DESC;
+	
+	</select>
+
+    <insert id="insertBoard" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Board (title, content, author, created_at)
+        VALUES (#{title}, #{content}, #{author}, #{createdAt})
+    </insert>
+
+    <delete id="deleteBoard">
+        DELETE FROM Board WHERE id = #{id}
+    </delete>
+</mapper>
