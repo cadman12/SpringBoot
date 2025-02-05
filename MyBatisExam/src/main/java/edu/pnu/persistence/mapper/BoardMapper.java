@@ -9,7 +9,9 @@ import edu.pnu.domain.Board;
 @Mapper
 public interface BoardMapper {
 
-	List<Board> getBoards(String title, String content, String author);
+	Board getBoard(Long id);
+	List<Board> getBoards(Board board);
 	void insertBoard(Board board);
+	void updateBoard(Board board);
 	void deleteBoard(Long id);
 }

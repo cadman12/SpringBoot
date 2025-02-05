@@ -6,10 +6,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +33,12 @@ public class Board {
     private String author;
     private LocalDateTime createdAt = LocalDateTime.now();
     
+    @ManyToOne
+    @JoinColumn(name="parent_id", nullable = true)
+    private Board board;
+    
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "board")
-    private List<Reply> replies = new ArrayList<>();
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Board> replies = new ArrayList<>();
 }

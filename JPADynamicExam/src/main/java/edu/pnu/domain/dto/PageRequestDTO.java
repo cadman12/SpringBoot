@@ -8,8 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PageRequestDTO {
-	private Integer pageNumber;
-	private Integer pageSize;
-	private Boolean asc;
+	private Integer pageNumber = 1;
+	private Integer pageSize = 5;
+	private Boolean asc = true;
 	private String field;
 }
