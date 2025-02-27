@@ -8,9 +8,9 @@
 
 	. Board 클래스에서 @ManyToOne으로 설정하는 경우
   
-	. Board 겍체를 삭제하면 정상 삭제 가능
+	. Board 객체를 삭제하면 정상 삭제 가능
 	
-	. Member 객체를 삭제하는 경우 연결된 Board 객체가 있으면 삭제 거부됨.
+	. Member 객체를 삭제하는 경우 연결된 Board 객체가 있으면 삭제 거부됨. Board에 설정된 JoinColumn에서 foreignKey 설정을 생략한 경우 Default인 RESTRICT로 설정되어 있기 때문임.
   
 	. Member를 삭제하고자 하면 우선 연결된 Board 객체를 모두 삭제하여야만 가능
 
