@@ -1,12 +1,14 @@
 ### ASyncBootThread
 
   스프링부트에서 @Async를 이용한 비동기 프로세싱
-	호출될 때마다 스레드를 생성하는 방식 예제 코드
+
+  호출될 때마다 스레드를 생성하는 방식 예제 코드
 
 ### ASyncBootThreadPool
 
   스프링부트에서 @Async를 이용한 비동기 프로세싱
-	스레드 풀을 이용하는 방식 예제 코드
+
+  스레드 풀을 이용하는 방식 예제 코드
 
 ### Base64Test
 
@@ -60,6 +62,14 @@
 
   @IdClass를 이용한 복합키 예제 코드 - @Id를 복수개 선언하는 방법
 
+### JPADynamicExam
+
+  JPA EntityManager를 이용한 동적 질의 예제 코드
+
+  Memory 기반 H2 데이터베이스 이용
+  
+  예제로 사용한 Board는 자기 참조를 이용한 답글 기능도 추가
+
 ### JPADynamicQuery
 
   스프링부트에서 Dynamic Query를 사용하는 몇가지 방법을 보여주는 예제 코드
@@ -87,7 +97,8 @@
 ### JPANplus1LazaInitException
 
   스프링부트에서 LazyInitException 문제 해결 방법 예제 코드
-	LazyInitException : Session이 끊어진 뒤 포함 객체 초기화 실패 예외
+
+  LazyInitException : Session이 끊어진 뒤 포함 객체 초기화 실패 예외
 
 ### JPARelationMapping
 
@@ -100,6 +111,12 @@
 ### LocaleProject
 
   Locale 설정에 따라 숫자, 금액, 날짜, 시간 출력 포멧이 바뀌어서 출력하는 예제
+
+### MyBatisExam
+
+  MyBatis Framework를 이용한 DB 제어 예제 코드
+
+  memory 기반 H2 데이터베이스 이용
 
 ### ProxyLecture
 
