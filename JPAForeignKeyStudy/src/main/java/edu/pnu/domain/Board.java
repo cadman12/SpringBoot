@@ -1,7 +1,6 @@
 package edu.pnu.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,9 +27,9 @@ public class Board {
 	private String title;
 	private String content;
 	
-//	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE CASCADE"))
-//	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE SET NULL"))
 	@ManyToOne
 	@JoinColumn(name = "username")
+//	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE CASCADE"))
+//	@JoinColumn(name = "username", foreignKey = @ForeignKey(name = "fk_board_member", foreignKeyDefinition = "FOREIGN KEY (username) REFERENCES member(username) ON DELETE SET NULL ON UPDATE CASCADE"))
 	private Member member;
 }
