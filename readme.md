@@ -126,6 +126,10 @@
 
   스프링부트 RestAPI 호출 시 파라미터 검증 기능 테스트 코드
 
+### ValidCheckinJava
+
+  스프링프레임워크없이 자바 응용프로그램에서 Validation 사용 예제
+
 ### ValidCheckwithThymeleaf
 
   스프링부트 API 호출 시 파라미터 검증 기능과 함께 Thymeleaf를 뷰로 사용하는 테스트 코드
