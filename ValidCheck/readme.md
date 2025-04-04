@@ -43,7 +43,6 @@
 			- 즉, "username"을 "username1"로 변경해서 호출하는 경우
 			- @Valid이 설정된 클래스(LoginForm)의 제약사항을 점검하고 점검 결과가 bindingResult에 설정되어서 넘어온다.
 			- 이 경우에는 @NotBlank(message = "이름은 필수 항목입니다.") 설정 때문에 bindingResult의 error에 "이름은 필수 항목입니다."가 설정되어 넘어온다.
-		3. 예외처리를 위해 @RestControllerAdvice를 등록해서 별도로 처리하는 것이 좋음.
 
 ---
 ##BindingResult bindingResult
