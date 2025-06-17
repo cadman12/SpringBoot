@@ -100,6 +100,10 @@
 
   LazyInitException : Session이 끊어진 뒤 포함 객체 초기화 실패 예외
 
+### JPAQueryDsl
+
+  JPA + QueryDSL 동적질의 예제
+
 ### JPARelationMapping
 
   테이블 연관관계 테스트 코드 (@ManyToOne, @OneToMany, @OneToOne, @ManyToMany)
