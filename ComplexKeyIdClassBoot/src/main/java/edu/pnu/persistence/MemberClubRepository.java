@@ -8,5 +8,7 @@ import edu.pnu.domain.MemberClub;
 import edu.pnu.domain.MemberClubId;
 
 public interface MemberClubRepository extends JpaRepository<MemberClub, MemberClubId> {
-	List<MemberClub> findByClub_ClubName(String clubName);
+	List<MemberClub> findByClub_ClubName(String name);
+	List<MemberClub> findByMember_Username(String name);
+	MemberClub findByMember_UsernameAndClub_ClubName(String username, String clubname);	
 }

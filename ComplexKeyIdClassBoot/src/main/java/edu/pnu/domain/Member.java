@@ -3,9 +3,7 @@ package edu.pnu.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -26,8 +24,9 @@ public class Member {
 	@Id
     private String username;
     private String password;
+    private String nickname;
 
     @Builder.Default
-    @OneToMany(mappedBy = "member", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member")
     private List<MemberClub> memberClubs = new ArrayList<>();
 }
