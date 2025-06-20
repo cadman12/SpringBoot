@@ -26,6 +26,18 @@
 
    Lombok에서 제공하는 Builder를 이용한 객체 생성의 원리를 이해하기 위한 예제 코드
 
+### ComplexKeyEmbeddIdBoot
+
+   스프링부트에서 복합키를 @EmbeddedId + @Embeddable을 이용해서 구현한 예제 코드
+
+### ComplexKeyIdClassBoot
+
+   스프링부트에서 복합키를 @IdClass를 이용해서 구현한 예제 코드
+
+### DualDBBoot
+
+   스프링부트에서 MySQL과 H2 데이터베이스 2개를 동시에 사용하는 예제 코드
+
 ### FileServiceBoot
 
   스프링부트에서 로컬 저장소에 저장된 이미지, 파일 등을 서비스하고자 할 때 설정 예제 코드
