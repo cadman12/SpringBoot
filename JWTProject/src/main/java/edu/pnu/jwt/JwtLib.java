@@ -15,7 +15,12 @@ public class JwtLib {
 	}
 
 	public static JwtLibParser parse(String jwtToken, String secret) {
-		return new JwtLibParser(jwtToken, secret);
+		try {
+			return new JwtLibParser(jwtToken, secret);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,27 +98,23 @@ public class JwtLib {
 		private String jwtToken;
 		private String[] jwtArr;
 		private String alg = "HS256";			// Default 값 설정
-		private String secret;
 		private Map<String, String> map;
 		
-		public JwtLibParser(String jwtToken, String secret) {
-			this.jwtToken = jwtToken;
-			this.secret = secret;
-			
-			jwtArr = this.jwtToken.split("\\.");
-
-			return;
-		}
-
-		// JWT 토큰이 유효한 토큰인지 검증 (signature 검증)
-		public JwtLibParser verify() throws Exception {
-			String secret32 = makeSecret32(secret);
-			String sign = makeSignature(jwtArr[0] + "." + jwtArr[1], secret32, getHashAlgorithm(alg));
-
-			if (sign.equals(jwtArr[2]))
-				return this;
-			
-			return null;
+		public JwtLibParser(String jwtToken, String secret) throws Exception {
+			try {
+				this.jwtToken = jwtToken;
+				
+				jwtArr = this.jwtToken.split("\\.");
+				
+				// JWT 토큰이 유효한 토큰인지 검증 (signature 검증)
+				String secret32 = makeSecret32(secret);
+				String sign = makeSignature(jwtArr[0] + "." + jwtArr[1], secret32, getHashAlgorithm(alg));
+	
+				if (!sign.equals(jwtArr[2]))
+					throw new RuntimeException("Signature is Invalid!");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		
 		public String getClaim(String claim) {
@@ -152,7 +153,9 @@ public class JwtLib {
 				String expStr = getClaim("exp");
 				if (Long.parseLong(expStr) < System.currentTimeMillis()*1000)
 					return false;
-			} catch (Exception e) {}			
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}			
 			return true;
 		}
 	}
