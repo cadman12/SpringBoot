@@ -1,9 +1,9 @@
 package edu.pnu.jwt;
+
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
