@@ -14,9 +14,9 @@ public class JwtLib {
 		return new JwtLibBuilder(secret);
 	}
 
-	public static JwtLibParser parse(String jwtToken, String secret) {
+	public static JwtLibParser parse(String jwtToken) {
 		try {
-			return new JwtLibParser(jwtToken, secret);
+			return new JwtLibParser(jwtToken);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -26,13 +26,20 @@ public class JwtLib {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
 	// 대칭키(HMAC) 기반 알고리즘 : Hash-based Message Authentication Code + Secured Hash Algorithm(해시함수 with NSA)
-	//		HS256 : HMAC + SHA-256 ==> Default
+	//		HS256 : HMAC + SHA-256 ==> Default (secret 길이 : 256bit : 32byte
 	//		HS384 : HMAC + SHA-384
 	//		HS512 : HMAC + SHA-512
 	static String getHashAlgorithm(String alg) {
 		if (alg.equalsIgnoreCase("HS384")) return "HmacSHA384";
 		if (alg.equalsIgnoreCase("HS512")) return "HmacSHA512";
 		return "HmacSHA256";
+	}
+
+	// 알고리즘에 따른 secret key 길이 설정
+	static int getSecretKeyLength(String alg) {
+		if (alg.equalsIgnoreCase("HS384")) return 48;
+		if (alg.equalsIgnoreCase("HS512")) return 64;
+		return 32;
 	}
 	
 	// bytes를 Base64 인코딩한 문자열을 리턴
@@ -66,12 +73,14 @@ public class JwtLib {
 		return convertToBase64(bytes, true);
 	}
 	
-	// jwt secret는 최소 32byte 이상이어야 한다. secret 길이가 32 이하면 (32-len) 만큼 *를 붙여준다.
-	// edu.pnu.jwt ==> edu.pnu.jwt*********************
-	static String makeSecret32(String secret) throws Exception {
-		if (32 <= secret.length())	return secret;
+	// jwt secret는 최소 32byte 이상이어야 한다.
+	// HS256 알고리즘을 사용하는데 secret 길이가 32 이하면 (32-len) 만큼 *를 붙여준다.
+	// secret : edu.pnu.jwt ==> edu.pnu.jwt*********************
+	static String makeSecret32(String secret, String alg) throws Exception {
+		int len = getSecretKeyLength(alg);
+		if (len <= secret.length())	return secret;
 		StringBuilder sb = new StringBuilder(secret);
-		for (int i = secret.length() ; i < 32 ; i++)	sb.append("*");
+		for (int i = secret.length() ; i < len ; i++)	sb.append("*");
 		return sb.toString();
 	}
 
@@ -98,31 +107,32 @@ public class JwtLib {
 		private String jwtToken;
 		private String[] jwtArr;
 		private String alg = "HS256";			// Default 값 설정
-		private Map<String, String> map;
+
+		public JwtLibParser(String jwtToken) {
+			this.jwtToken = jwtToken;
+			jwtArr = this.jwtToken.split("\\.");
+		}
 		
-		public JwtLibParser(String jwtToken, String secret) throws Exception {
+		public JwtLibParser algorithm(String alg) {
+			this.alg = alg.toUpperCase();
+			return this;
+		}
+		
+		// JWT 토큰이 유효한 토큰인지 검증 (signature 검증)
+		public JwtLibParser verify(String secret) {
 			try {
-				this.jwtToken = jwtToken;
-				
-				jwtArr = this.jwtToken.split("\\.");
-				
-				// JWT 토큰이 유효한 토큰인지 검증 (signature 검증)
-				String secret32 = makeSecret32(secret);
+				String secret32 = makeSecret32(secret, alg);
 				String sign = makeSignature(jwtArr[0] + "." + jwtArr[1], secret32, getHashAlgorithm(alg));
-	
-				if (!sign.equals(jwtArr[2]))
-					throw new RuntimeException("Signature is Invalid!");
+
+				if (!sign.equals(jwtArr[2])) return null;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+			return this;
 		}
 		
 		public String getClaim(String claim) {
-			if (map != null) {
-				return map.get(claim);
-			}
-
-			map = new HashMap<>();
+			Map<String, String> map = new HashMap<>();
 
 			String str = "";
 			try {
@@ -202,7 +212,7 @@ public class JwtLib {
 				String payload = claimsToJSONString(claims);
 				String payload64 = convertToBase64(payload, true);
 				
-				String secret32 = makeSecret32(secret);
+				String secret32 = makeSecret32(secret, alg);
 				String sign = makeSignature(header64 + "." + payload64, secret32, getHashAlgorithm(alg));
 	
 				return header64 + "." + payload64 + "." + sign;
