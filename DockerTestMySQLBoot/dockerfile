@@ -1,0 +1,18 @@
+# 베이스 이미지 선택
+FROM eclipse-temurin:21-jre
+
+# 현재 폴더의 target 폴더 안에 있는 jar 파일명을 JAR_FILE에 설정
+# 두 개이상의 jar 파일이 있으면 오류가 발생할 가능성이 높음.
+ARG JAR_FILE=target/*.jar
+
+# JAR_FILE에 지정된 jar 파일을 docker image로 복사
+COPY ${JAR_FILE} DockerTestMySQLBoot-0.0.1-SNAPSHOT.jar
+
+# 어플리케이션에서 사용하는 포트 명시
+# 컨테이너가 내부적으로 사용하는 포트를 문서화하는 용도로서 포트를 실제로 열어주지 않음.
+# 지정하지 않으면 컨테이너를 생성할 때 UI에서 포트를 지정할 수 없다. CLI를 이용한다면 상관없다.
+EXPOSE 8080
+
+# 실행 명령
+# spring.profiles.active : 서버 구동할 때 application.properties내 profile을 docker로 선택하라는 지시
+ENTRYPOINT ["java", "-jar", "DockerTestMySQLBoot-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=docker"]

@@ -34,6 +34,14 @@
 
    스프링부트에서 복합키를 @IdClass를 이용해서 구현한 예제 코드
 
+### DockerTestH2MemBoot
+
+   스프링부트 + H2(Mem) + Docker
+
+### DockerTestMySQLBoot
+
+   스프링부트 + MySQL + Docker
+
 ### DualDBBoot
 
    스프링부트에서 MySQL과 H2 데이터베이스 2개를 동시에 사용하는 예제 코드
