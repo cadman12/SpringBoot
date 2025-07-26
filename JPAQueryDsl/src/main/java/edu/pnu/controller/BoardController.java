@@ -34,6 +34,7 @@ public class BoardController {
 
 	@GetMapping("/board")
 	public ResponseEntity<?> getBoards(BoardFilter bf) {
+
 		List<Board> boardList = null;
 		
 		if (bf.getKey() == null || bf.getKey().isBlank() ||
