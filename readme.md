@@ -14,6 +14,14 @@
 
    Base64 인코딩 테스트 예제 코드
 
+### BootDataJDBC
+
+   Spring Data JDBC를 주입했을 때 주로 사용하는 코드 예제 (with H2 Memory)
+
+   주로 JdbcTemplate이 가장 많이 사용된다.
+
+   DataInit에서 테이블을 만들고 초기 데이터를 입력한다.
+
 ### BootWebSocketAsyncWebClient
 	
    WebClient & 스케쥴러 & 웹소켓을 이용한 동기/비동기 푸시서비스 예제 코드
