@@ -136,6 +136,10 @@
 
   테이블 연관관계 테스트 코드 (@ManyToOne, @OneToMany, @OneToOne, @ManyToMany)
 
+### JPAStoredProcedure
+
+  데이터베이스에서 선언한 저장 프로시저를 사용하는 예제 코드
+
 ### JPATransaction
 
   스프링 JPA에서 트랜잭션을 사용하는 예제 코드
