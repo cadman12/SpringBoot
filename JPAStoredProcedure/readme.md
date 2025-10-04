@@ -11,5 +11,8 @@
 	- JPA Repository 인터페이스(InventoryRepository)를 정의할 때 사용자 인터페이스를 상속하도록 설정하면 구현체를 만들때 InventoryRepositoryImpl을 결합
 	
 	- 이때 자동으로 DI가 수행되므로 InventoryRepositoryImpl에 @Repository를 선언할 필요는 없음.
-	
-	
+
+
+# edu.pnu.jdbc.JDBCStoredProcedure.java
+
+	- JDBC를 이용한 저장 프로시저 실행 예제 코드

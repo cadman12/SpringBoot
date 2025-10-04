@@ -33,8 +33,11 @@ public class InventoryRepositoryImpl implements InventoryRepositoryCustom {
         query.setParameter(1, filmId);
         query.setParameter(2, storeId);
 
+		// 저장 프로시저 실행 결과 저장 객체 생성
         Map<String, Object> map = new HashMap<>();
         List<Object> list = new ArrayList<>();
+        
+		// 저장 프로시저 실행 (true:ResultSet, false:UpdateCount)
         boolean isResultSet = query.execute();
         do {
 	        if (isResultSet) {
@@ -42,6 +45,7 @@ public class InventoryRepositoryImpl implements InventoryRepositoryCustom {
 	        } else {
 	        	map.put("updateCount", query.getUpdateCount());
 	        }
+	        // 저장 프로시저 다음 질의 결과
 	        isResultSet = query.hasMoreResults();
         } while(isResultSet || query.getUpdateCount() != -1);
 
