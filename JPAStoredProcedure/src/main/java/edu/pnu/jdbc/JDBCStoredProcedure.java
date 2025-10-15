@@ -35,7 +35,8 @@ public class JDBCStoredProcedure {
 	        			System.out.print(rs.getString(i));
 	        		}
 	        		System.out.println();
-        		}        		
+        		}
+				rs.close();
         	}
         	else {
 	        	System.out.println("updateCount:" + cs.getUpdateCount());
@@ -45,5 +46,7 @@ public class JDBCStoredProcedure {
         } while(isResultSet || cs.getUpdateCount() != -1);
 
         System.out.println("p_film_count:" + cs.getInt(3));
+		cs.close();
+		con.close();
 	}
 }
